@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebApplication_Bordasheva.Data;
+using WebApplication_Bordasheva.Services;
+using WebLab4.Data;
+using WebLab4.Entities;
 
 namespace WebApplication_Bordasheva
 {
@@ -30,14 +32,26 @@ namespace WebApplication_Bordasheva
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+                                IWebHostEnvironment env,
+                                ApplicationDbContext context,
+                                UserManager<ApplicationUser> userManager,
+                                RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +79,9 @@ namespace WebApplication_Bordasheva
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            DbInitializer.Seed(context, userManager, roleManager)
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }
