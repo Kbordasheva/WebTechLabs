@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Phone>
+
+@{
+    ViewData["Title"] = "Телефоны";
+}
+
+
+<div class="row">
+    <div class="card-deck">
+        @foreach (var item in Model)
+        {
+            <div class='card m-2 p-1 text-center col-4'>
+                <img src="~/Images/@item.Image"
+                     alt='NoImage'
+                     class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @item.PhoneName
+                    </h5>
+                    <p class="card-text">
+                        @item.Description
+                    </p>
+                    <div class="card-subtitle badge badge-secondary">
+                        <h6>@item.Price руб</h6>
+                    </div>
+                    @{ // Получение текущего адреса
+                        var request = ViewContext.HttpContext.Request;
+                        var returnUrl = request.Path +
+            request.QueryString.ToUriComponent();
+                    }
+                    <!--Разметка кнопки добавления в корзину-->
+                    <p class="mt-2">
+                        <a asp-action="Add"
+                           asp-controller="Cart"
+                           asp-route-id="@item.PhoneId"
+                           asp-route-returnUrl="@returnUrl"
+                           class="btn btn-primary">
+                            <i class="fa fa-shopping-cart"></i> В корзину
+                        </a>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneGroupId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneGroupId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

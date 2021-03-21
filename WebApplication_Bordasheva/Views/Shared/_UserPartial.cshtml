@@ -8,12 +8,12 @@
         <div class="dropdown-toggle" id="dropdownMenuButton"
              data-toggle="dropdown" aria-haspopup="true"
              aria-expanded="false">
-            <img src="Images/avatar.gif" width="30"
-                 alt="User" class="rounded" />
+            <img src="@Url.Action("GetAvatar", "Image")" width="30"
+                 alt="User" class="rounded bg-light" />
         </div>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <div class="dropdown-item-text">
-                <img src="Images/avatar.gif" width="50"
+                <img src="@Url.Action("GetAvatar", "Image")" width="50"
                      alt="User" class="rounded" />
                 @User.Identity.Name
             </div>
