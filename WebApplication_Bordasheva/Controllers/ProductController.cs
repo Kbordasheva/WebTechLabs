@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication_Bordasheva.Models;
 using WebLab4.Entities;
 
 namespace WebApplication_Bordasheva.Controllers
 {
     public class ProductController : Controller
     {
-        List<Phone> _phones;
+        public List<Phone> _phones;
         List<PhoneGroup> _phoneGroups;
+        int _pageSize;
 
         public ProductController()
         {
+            _pageSize = 3;
             SetupData();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? group, int pageNo=1)
         {
-            return View(_phones);
+            var phonesFiltered = _phones.Where(p => !group.HasValue || p.PhoneGroupId == group.Value);
+            // Поместить список групп во ViewData 
+            ViewData["Groups"] = _phoneGroups;
+
+            // Получить id текущей группы и поместить в TempData 
+            ViewData["CurrentGroup"] = group ?? 0;
+            return View(ListViewModel<Phone>.GetModel(phonesFiltered, pageNo, _pageSize));
         }
 
         /// <summary> 
