@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System.Collections.Generic;
 using WebApplication_Bordasheva.Controllers;
 using WebLab4.Entities;
@@ -35,8 +37,17 @@ namespace WebApplication_Bordasheva.Tests
 
         public void ControllerGetsProperPage(int page, int qty, int id)
         {
+            // Контекст контроллера 
+            var controllerContext = new ControllerContext();
+            // Макет HttpContext 
+            var moqHttpContext = new Mock<HttpContext>();
+            moqHttpContext.Setup(c => c.Request.Headers)
+            .Returns(new HeaderDictionary());
+
+            controllerContext.HttpContext = moqHttpContext.Object;
+
             // Arrange             
-            var controller = new ProductController();
+            var controller = new ProductController() {ControllerContext=controllerContext};
 
             controller._phones = TestData.GetPhonesList();
 

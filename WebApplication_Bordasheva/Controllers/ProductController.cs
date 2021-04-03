@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication_Bordasheva.Extensions;
 using WebApplication_Bordasheva.Models;
 using WebLab4.Entities;
 
@@ -19,6 +20,8 @@ namespace WebApplication_Bordasheva.Controllers
             SetupData();
         }
 
+        [Route("Catalog")]
+        [Route("Catalog/Page_{pageNo}")]
         public IActionResult Index(int? group, int pageNo=1)
         {
             var phonesFiltered = _phones.Where(p => !group.HasValue || p.PhoneGroupId == group.Value);
@@ -27,7 +30,12 @@ namespace WebApplication_Bordasheva.Controllers
 
             // Получить id текущей группы и поместить в TempData 
             ViewData["CurrentGroup"] = group ?? 0;
-            return View(ListViewModel<Phone>.GetModel(phonesFiltered, pageNo, _pageSize));
+
+            var model = ListViewModel<Phone>.GetModel(phonesFiltered, pageNo, _pageSize);
+            if (Request.IsAjaxRequest())
+                return PartialView("_listpartial", model);
+            else
+                return View(model);
         }
 
         /// <summary> 
