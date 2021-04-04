@@ -10,5 +10,7 @@ namespace WebLab4.Data
         {
 
         }
+        public DbSet<Phone> Phones { get; set; }
+        public DbSet<PhoneGroup> PhoneGroups { get; set; }
     }
 }
