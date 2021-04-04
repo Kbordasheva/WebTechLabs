@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication_Bordasheva.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Корзина</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Images/@item.Phone.Image" alt="No image" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Phone.PhoneName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <a asp-controller="Cart"
+                       asp-action="Delete" asp-route-id="@item.Phone.PhoneId"
+                       class="btn btn-outline-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
