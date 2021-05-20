@@ -13,10 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebApplication_Bordasheva.Models;
 using WebApplication_Bordasheva.Services;
 using WebLab4.Data;
 using WebLab4.Entities;
+using WebApplication_Bordasheva.Extensions;
 
 namespace WebApplication_Bordasheva
 {
@@ -64,8 +66,11 @@ namespace WebApplication_Bordasheva
                                 IWebHostEnvironment env,
                                 ApplicationDbContext context,
                                 UserManager<ApplicationUser> userManager,
-                                RoleManager<IdentityRole> roleManager)
+                                RoleManager<IdentityRole> roleManager,
+                                ILoggerFactory logger)
         {
+            logger.AddFile("Logs/log-{Date}.txt");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -81,6 +86,7 @@ namespace WebApplication_Bordasheva
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseFileLogging();
 
             app.UseAuthentication();
             app.UseAuthorization();

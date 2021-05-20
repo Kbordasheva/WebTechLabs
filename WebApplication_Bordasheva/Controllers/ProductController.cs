@@ -6,6 +6,7 @@ using WebApplication_Bordasheva.Extensions;
 using WebApplication_Bordasheva.Models;
 using WebLab4.Entities;
 using WebLab4.Data;
+using Microsoft.Extensions.Logging;
 
 namespace WebApplication_Bordasheva.Controllers
 {
@@ -13,11 +14,13 @@ namespace WebApplication_Bordasheva.Controllers
     {
         ApplicationDbContext _context;
         int _pageSize;
+        private ILogger _logger;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, ILogger<ProductController> logger)
         {
             _pageSize = 3;
             _context = context;
+            _logger = logger;
         }
 
         [Route("Catalog")]
@@ -32,6 +35,7 @@ namespace WebApplication_Bordasheva.Controllers
             ViewData["CurrentGroup"] = group ?? 0;
 
             var model = ListViewModel<Phone>.GetModel(phonesFiltered, pageNo, _pageSize);
+            _logger.LogInformation($"info: group={group},  page={pageNo}");
             if (Request.IsAjaxRequest())
                 return PartialView("_listpartial", model);
             else
