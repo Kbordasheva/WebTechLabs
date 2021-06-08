@@ -1,0 +1,32 @@
+﻿@using WebApplication_Bordasheva.Blazor.Data
+<h3>PhinesList</h3>
+
+@if (Phones == null)
+{
+    <p>Загрузка ...</p>
+}
+else
+{
+    <div class="list-group">
+        @{
+            var i = 1;
+            foreach (var phone in Phones)
+            {
+                <button type="button" class="list-group-item list-group-
+item-action">
+                    @(i++) - @phone.PhoneName
+                </button>
+            }
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<ListViewModel> Phones { get; set; }
+    [Parameter]
+    public EventCallback<IEnumerable<ListViewModel>> PhonesChanged
+    {
+        get; set;
+    }
+} 
