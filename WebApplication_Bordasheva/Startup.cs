@@ -19,6 +19,7 @@ using WebApplication_Bordasheva.Services;
 using WebLab4.Data;
 using WebLab4.Entities;
 using WebApplication_Bordasheva.Extensions;
+using Microsoft.Net.Http.Headers;
 
 namespace WebApplication_Bordasheva
 {
@@ -91,6 +92,10 @@ namespace WebApplication_Bordasheva
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+            app.UseCors(policy =>
+                policy.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                 .WithHeaders(HeaderNames.ContentType));
 
             app.UseEndpoints(endpoints =>
             {

@@ -6,6 +6,10 @@ using System.Text.Json.Serialization;
 
 namespace WebApplication_Bordasheva.Blazor.Data
 {
+    public class ApiViewModels
+    {
+    }
+
     public class ListViewModel
     {
         [JsonPropertyName("phoneId")]
@@ -22,7 +26,7 @@ namespace WebApplication_Bordasheva.Blazor.Data
         [JsonPropertyName("description")]
         public string Description { get; set; } // описание телефона 
         [JsonPropertyName("price")]
-        public int Calories { get; set; } // цена
+        public int Price { get; set; } // цена
         [JsonPropertyName("image")]
         public string Image { get; set; } // имя файла изображения    
     }

@@ -1,22 +1,25 @@
 ﻿@page "/apidemo"
+@using System.Net.Http.Json;
+
+@*@inject IHttpClientFactory clientFactory*@
+@using WebApplication_Bordasheva.Blazor.Data;
+@using WebApplication_Bordasheva.Blazor.Components;
 @inject HttpClient client
 
-@using WebApplication_Bordasheva.Blazor.Data
-
 <div class="container">
-  @*  <PhonesList @bind-Phones=""></PhonesList>*@
-    <h3>Страница API Demo</h3>
+    @*<h3>CТраница апи демо</h3>*@
+    <PhonesList @bind-Phones="phones"></PhonesList>
 </div>
 
 @code {
-    //[Parameter]
-    //public IEnumerable<ListViewModel> phones { get; set; }
+    [Parameter]
+    public IEnumerable<ListViewModel> phones { get; set; }
 
 
-    //string apiBaseAddress = "https://localhost:44310/Api/Dishes";
+    string apiBaseAddress = "https://localhost:44382/Api/Phones";
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    phones = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>(apiBaseAddress);
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        phones = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>(apiBaseAddress);
+    }
 }

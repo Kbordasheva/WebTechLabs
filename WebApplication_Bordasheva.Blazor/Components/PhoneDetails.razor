@@ -1,9 +1,8 @@
 ﻿@using WebApplication_Bordasheva.Blazor.Data
-@using WebApplication_Bordasheva.Blazor.Components
 
 <h3>PhoneDetails</h3>
 
-@*@if (Phone != null)
+@if (Phone != null)
 {
     <img src="@imageSrc" class="img-thumbnail" width="150" />
 
@@ -11,9 +10,9 @@
         <p>@Phone.PhoneName - @Phone.Description</p>
         <div class="badge badge-info ">@Phone.Price руб</div>
     </div>
-}*@
+}
 
-@*@code {
+@code {
         [Parameter]
         public DetailsViewModel Phone { get; set; }
 
@@ -27,4 +26,4 @@
                 return $"https://localhost:44310/images/{Phone.Image}";
             }
         }
-    }*@
+    }
