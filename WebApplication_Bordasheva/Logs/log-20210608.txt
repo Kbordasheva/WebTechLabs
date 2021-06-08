@@ -31,3 +31,6 @@
 2021-06-08T22:26:21.8299227+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2021-06-08T22:26:21.8369403+03:00  [INF] Hosting environment: "Development" (c3307c92)
 2021-06-08T22:26:21.8370236+03:00  [INF] Content root path: "C:\Artemissa\БГУИР\Триместр 4\ВТ\Labs\WebApplication_Bordasheva\WebApplication_Bordasheva" (b5d60022)
+2021-06-08T22:42:18.2781448+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-06-08T22:42:18.2892725+03:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-06-08T22:42:18.2893741+03:00  [INF] Content root path: "C:\Artemissa\БГУИР\Триместр 4\ВТ\Labs\WebApplication_Bordasheva\WebApplication_Bordasheva" (b5d60022)

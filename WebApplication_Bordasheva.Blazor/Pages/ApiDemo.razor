@@ -7,8 +7,8 @@
 @inject HttpClient client
 
 <div class="container">
-    @*<h3>CТраница апи демо</h3>*@
-    <PhonesList @bind-Phones="phones"></PhonesList>
+    <PhonesList @bind-Phones="phones" SelectedObjectChanged="ShowDetails"></PhonesList>
+    <PhoneDetails @bind-Phone="SelectedPhone"></PhoneDetails>
 </div>
 
 @code {
@@ -22,4 +22,11 @@
     {
         phones = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>(apiBaseAddress);
     }
+
+    [Parameter] 
+    public DetailsViewModel SelectedPhone { get; set; } 
+    private async Task ShowDetails(int id) 
+    { 
+      SelectedPhone = await client.GetFromJsonAsync<DetailsViewModel>(apiBaseAddress+$"/{id}"); 
+    } 
 }
